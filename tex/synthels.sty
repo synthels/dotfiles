@@ -1,0 +1,129 @@
+%% licensed under the MIT license. See LICENSE file in the project root for details.
+
+% synthels' LaTeX preamble
+%
+% usage:
+%   \usepackage[options]{synthels}
+%
+% options:
+%   - unicode:    enables a unicode font.
+%   - fancyprob:  problem environments come with a fancy box.
+%   - tikz:       loads TikZ & asymptote
+%
+
+\ProvidesPackage{synthels}
+
+\RequirePackage{kvoptions}
+
+% package options
+\DeclareBoolOption{unicode}
+\DeclareBoolOption{fancyprob}
+\DeclareBoolOption{tikz}
+
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage[shortlabels]{enumitem}
+\usepackage[dvipsnames]{xcolor}
+
+\ProcessKeyvalOptions*
+
+% enables libertinus
+\ifsynthels@unicode
+  \usepackage{libertinus}
+\fi
+
+% loads TikZ & asy
+\ifsynthels@tikz
+  \usepackage{tikz-cd}
+  \usepackage{asymptote}
+\fi
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+}
+
+% provides a "solution" environment
+\newenvironment{solution}{
+  \paragraph{
+    \textnormal{\textit{Solution.}}
+  }
+}{\hfill$\square$}
+
+% stupid theorem styles
+\newtheoremstyle{example}
+  {3pt}
+  {3pt}
+  {\fontseries\mddefault}
+  {}
+  {\bfseries\color{BrickRed}}
+  {.}
+  { }
+  {}
+
+\newtheoremstyle{problem}
+  {3pt}
+  {3pt}
+  {\fontseries\mddefault}
+  {}
+  {\bfseries\color{Blue}}
+  {.}
+  { }
+  {}
+
+% defines a theorem with a fancy box
+% usage:
+%   \newfancytheorem{name}{color}{arc}
+\newcommand{\newfancytheorem}[3]{
+  \newtheorem{_#1}{{\color{#2}\MakeUppercase #1}}
+  \newenvironment{#1}{
+    \begin{tcolorbox}[
+      arc=#3,
+      colback=#2!10!white,
+      colframe=#2!80!black,
+      boxrule=0.1mm
+    ]{}{}
+  \begin{_#1}
+  }
+  {
+    \end{_#1}
+    \end{tcolorbox}
+  }
+}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+% problem environment
+\theoremstyle{problem}
+\ifsynthels@fancyprob
+  \newfancytheorem{problem}{Blue}{2mm}
+\else
+  \newtheorem{problem}{Problem}
+\fi
+
+% theorem, lemma, example
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{example}
+\newfancytheorem{example}{BrickRed}{0mm}
+
+% title format
+\titleformat{\title}
+  {\normalfont\sffamily\bfseries}
+  {{{\color{Blue}\thesection}\quad---}}{1em}{}
+
+% macros
+\DeclareMathOperator*{\lcm}{lcm}
+
+% sets
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathbf{F}}
+
