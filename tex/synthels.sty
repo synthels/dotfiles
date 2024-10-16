@@ -5,8 +5,12 @@
 % usage:
 %   \usepackage[options]{synthels}
 %
+% use only with LuaTeX/XeTeX!
+%
 % options:
+%   - handout:    adds a header with my name.
 %   - unicode:    enables a unicode font.
+%   - fancythm:   theorem environments come with a fancy box.
 %   - fancyprob:  problem environments come with a fancy box.
 %   - tikz:       loads TikZ & asymptote.
 %   - wide:       increases L/R margins.
@@ -17,7 +21,9 @@
 \RequirePackage{kvoptions}
 
 % package options
+\DeclareBoolOption{handout}
 \DeclareBoolOption{unicode}
+\DeclareBoolOption{fancythm}
 \DeclareBoolOption{fancyprob}
 \DeclareBoolOption{tikz}
 \DeclareBoolOption{wide}
@@ -30,6 +36,18 @@
 \usepackage[dvipsnames]{xcolor}
 
 \ProcessKeyvalOptions*
+
+% adds a header
+\ifsynthels@handout
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \fancyhead[L]{synthels}
+  \fancyhead[R]{\date{\today}}
+
+  \ifsynthels@wide
+    \fancyhfoffset[LE,RO]{.15cm}
+  \fi
+\fi
 
 % enables libertinus
 \ifsynthels@unicode
@@ -66,30 +84,24 @@
 }{\hfill$\square$}
 
 % stupid theorem styles
-\newtheoremstyle{example}
+\newcommand{\newfancytheoremstyle}[2]{
+\newtheoremstyle{#1}
   {3pt}
   {3pt}
   {\fontseries\mddefault}
   {}
-  {\bfseries\color{BrickRed}}
+  {\bfseries\color{#2}}
   {.}
   { }
   {}
-
-\newtheoremstyle{problem}
-  {3pt}
-  {3pt}
-  {\fontseries\mddefault}
-  {}
-  {\bfseries\color{Blue}}
-  {.}
-  { }
-  {}
+}
 
 % defines a theorem with a fancy box
 % usage:
 %   \newfancytheorem{name}{color}{arc}
 \newcommand{\newfancytheorem}[3]{
+  \newfancytheoremstyle{#1}{#2}
+  \theoremstyle{#1}
   \newtheorem{_#1}{{\color{#2}\MakeUppercase #1}}
   \newenvironment{#1}{
     \begin{tcolorbox}[
@@ -110,16 +122,21 @@
 \newtheorem{definition}{Definition}
 
 % problem environment
-\theoremstyle{problem}
 \ifsynthels@fancyprob
-  \newfancytheorem{problem}{Blue}{2mm}
+  \newfancytheorem{problem}{Green}{2mm}
 \else
   \newtheorem{problem}{Problem}
 \fi
 
 % theorem, lemma, example
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
+\theoremstyle{plain}
+\ifsynthels@fancythm
+  \newfancytheorem{theorem}{Blue}{2mm}
+  \newfancytheorem{lemma}{Purple}{2mm}
+\else
+  \newtheorem{theorem}{Theorem}
+  \newtheorem{lemma}{Lemma}
+\fi
 
 \theoremstyle{example}
 \newfancytheorem{example}{BrickRed}{0mm}
