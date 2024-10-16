@@ -8,7 +8,7 @@
 % use only with LuaTeX/XeTeX!
 %
 % options:
-%   - handout:    adds a header with my name.
+%   - handout:    for my handouts.
 %   - unicode:    enables a unicode font.
 %   - fancythm:   theorem environments come with a fancy box.
 %   - fancyprob:  problem environments come with a fancy box.
@@ -37,8 +37,12 @@
 
 \ProcessKeyvalOptions*
 
-% adds a header
+% adds a header, also wide and fancythm
 \ifsynthels@handout
+  \PassOptionsToPackage{wide}{synthels}
+  \PassOptionsToPackage{fancythm}{synthels}
+  \ProcessKeyvalOptions*
+
   \usepackage{fancyhdr}
   \pagestyle{fancy}
   \fancyhead[L]{synthels}
@@ -157,4 +161,3 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\FF}{\mathbf{F}}
-
