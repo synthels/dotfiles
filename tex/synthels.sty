@@ -95,7 +95,7 @@
   {\fontseries\mddefault}
   {}
   {\bfseries\color{#2}}
-  {.}
+  {\;---}
   { }
   {}
 }
@@ -127,28 +127,22 @@
 
 % problem environment
 \ifsynthels@fancyprob
-  \newfancytheorem{problem}{Green}{2mm}
+  \newfancytheorem{problem}{Purple}{2mm}
 \else
   \newtheorem{problem}{Problem}
 \fi
 
 % theorem, lemma, example
-\theoremstyle{plain}
 \ifsynthels@fancythm
   \newfancytheorem{theorem}{Blue}{2mm}
-  \newfancytheorem{lemma}{Purple}{2mm}
+  \newfancytheorem{lemma}{Green}{2mm}
 \else
+  \theoremstyle{plain}
   \newtheorem{theorem}{Theorem}
   \newtheorem{lemma}{Lemma}
 \fi
 
-\theoremstyle{example}
 \newfancytheorem{example}{BrickRed}{0mm}
-
-% title format
-\titleformat{\title}
-  {\normalfont\sffamily\bfseries}
-  {{{\color{Blue}\thesection}\quad---}}{1em}{}
 
 % macros
 \DeclareMathOperator*{\lcm}{lcm}
@@ -161,3 +155,6 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\FF}{\mathbf{F}}
+
+% (re)new commands
+\renewcommand{\textbf}[1]{{\bfseries\color{blue}{#1}}}
