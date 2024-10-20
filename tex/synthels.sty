@@ -166,19 +166,18 @@
 
 % theorem, lemma, example
 \ifsynthels@fancythm
-  \newfancytheorem{theorem}{Blue}{2mm}
-  \newfancytheorem{lemma}{Green}{2mm}
+  \newfancytheorem{theorem}{Cyan}{2mm}
+  \newfancytheorem{lemma}{Emerald}{2mm}
 \fi
 
 \ifsynthels@olympiad
-  \newolytheorem{theorem}{Blue}
-  \newolytheorem{lemma}{Green}
+  \newolytheorem{theorem}{Cyan}
+  \newolytheorem{lemma}{Emerald}
   \newolytheorem{claim}{Orange}
-\else
-  \theoremstyle{plain}
-  \newtheorem{theorem}{Theorem}
-  \newtheorem{lemma}{Lemma}
 \fi
+
+%% TODO: plain environments if nothing
+%% is passed to the package.
 
 \newfancytheorem{example}{BrickRed}{0mm}
 
