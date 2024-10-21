@@ -9,7 +9,7 @@
 %
 % options:
 %   - handout:    for my handouts.
-%   - claim:      adds a "claim" environment.
+%   - olythm:     olympiad style theorem environments.
 %   - unicode:    enables a unicode font.
 %   - fancythm:   theorem environments come with a fancy box.
 %   - fancyprob:  problem environments come with a fancy box.
@@ -23,7 +23,7 @@
 
 % package options
 \DeclareBoolOption{handout}
-\DeclareBoolOption{claim}
+\DeclareBoolOption{olythm}
 \DeclareBoolOption{unicode}
 \DeclareBoolOption{fancythm}
 \DeclareBoolOption{fancyprob}
@@ -38,6 +38,13 @@
 \usepackage[dvipsnames]{xcolor}
 
 \ProcessKeyvalOptions*
+
+% check if options are illegal
+\ifsynthels@fancythm
+  \ifsynthels@olythm
+    \PackageError{synthels}{can't use fancythm and olythm together!}
+  \fi
+\fi
 
 % adds a header, also wide and fancythm
 \ifsynthels@handout
@@ -113,8 +120,8 @@
     \begin{tcolorbox}[
       arc=#3,
       colback=#2!10!white,
-      colframe=#2!80!black,
-      boxrule=0.1mm
+      colframe=#2!10!white,
+      boxrule=0mm
     ]{}{}
   \begin{_#1}
   }
@@ -159,14 +166,16 @@
 
 % theorem, lemma, example
 \ifsynthels@fancythm
-  \newfancytheorem{theorem}{Cyan}{2mm}
-  \newfancytheorem{lemma}{Emerald}{2mm}
+  \newfancytheorem{theorem}{Cyan}{0mm}
+  \newfancytheorem{lemma}{Emerald}{0mm}
 \else
   \newtheorem{theorem}{Theorem}
   \newtheorem{lemma}{Lemma}
 \fi
 
-\ifsynthels@claim
+\ifsynthels@olythm
+  \newolytheorem{theorem}{Cyan}
+  \newolytheorem{lemma}{Emerald}
   \newolytheorem{claim}{Orange}
 \fi
 
