@@ -9,7 +9,7 @@
 %
 % options:
 %   - handout:    for my handouts.
-%   - olympiad:   for writing up solutions to problems.
+%   - claim:      adds a "claim" environment.
 %   - unicode:    enables a unicode font.
 %   - fancythm:   theorem environments come with a fancy box.
 %   - fancyprob:  problem environments come with a fancy box.
@@ -23,7 +23,7 @@
 
 % package options
 \DeclareBoolOption{handout}
-\DeclareBoolOption{olympiad}
+\DeclareBoolOption{claim}
 \DeclareBoolOption{unicode}
 \DeclareBoolOption{fancythm}
 \DeclareBoolOption{fancyprob}
@@ -38,13 +38,6 @@
 \usepackage[dvipsnames]{xcolor}
 
 \ProcessKeyvalOptions*
-
-% check if options are illegal
-\ifsynthels@olympiad
-  \ifsynthels@fancythm
-    \PackageError{synthels}{can't use olympiad and fancythm options together!}
-  \fi
-\fi
 
 % adds a header, also wide and fancythm
 \ifsynthels@handout
@@ -168,16 +161,14 @@
 \ifsynthels@fancythm
   \newfancytheorem{theorem}{Cyan}{2mm}
   \newfancytheorem{lemma}{Emerald}{2mm}
+\else
+  \newtheorem{theorem}{Theorem}
+  \newtheorem{lemma}{Lemma}
 \fi
 
-\ifsynthels@olympiad
-  \newolytheorem{theorem}{Cyan}
-  \newolytheorem{lemma}{Emerald}
+\ifsynthels@claim
   \newolytheorem{claim}{Orange}
 \fi
-
-%% TODO: plain environments if nothing
-%% is passed to the package.
 
 \newfancytheorem{example}{BrickRed}{0mm}
 
