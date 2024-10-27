@@ -9,7 +9,6 @@
 %
 % options:
 %   - handout:    for my handouts.
-%   - olythm:     olympiad style theorem environments.
 %   - unicode:    enables a unicode font.
 %   - fancythm:   theorem environments come with a fancy box.
 %   - fancyprob:  problem environments come with a fancy box.
@@ -23,7 +22,6 @@
 
 % package options
 \DeclareBoolOption{handout}
-\DeclareBoolOption{olythm}
 \DeclareBoolOption{unicode}
 \DeclareBoolOption{fancythm}
 \DeclareBoolOption{fancyprob}
@@ -31,6 +29,7 @@
 \DeclareBoolOption{wide}
 
 \usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{mathrsfs}
 \usepackage{titlesec}
 \usepackage{hyperref}
 \usepackage[many]{tcolorbox}
@@ -38,13 +37,6 @@
 \usepackage[dvipsnames]{xcolor}
 
 \ProcessKeyvalOptions*
-
-% check if options are illegal
-\ifsynthels@fancythm
-  \ifsynthels@olythm
-    \PackageError{synthels}{can't use fancythm and olythm together!}
-  \fi
-\fi
 
 % adds a header, also wide and fancythm
 \ifsynthels@handout
@@ -56,10 +48,10 @@
   \pagestyle{fancy}
   \fancyhead[L]{synthels}
   \fancyhead[R]{\date{\today}}
+\fi
 
-  \ifsynthels@wide
-    \fancyhfoffset[LE,RO]{.15cm}
-  \fi
+\ifsynthels@wide
+  \fancyhfoffset[LE,RO]{.15cm}
 \fi
 
 % enables libertinus
@@ -131,29 +123,6 @@
   }
 }
 
-% defines a theorem with a (small, square) fancy box
-% same usage as above
-\newcommand{\newolytheorem}[2]{
-  \newfancytheoremstyle{#1}{#2}
-  \theoremstyle{#1}
-  \newtheorem{_#1}{{\color{#2}\MakeUppercase #1}}
-  \newenvironment{#1}{
-    \begin{tcolorbox}[
-      enhanced,
-      arc=0mm,
-      colback=#2!10!white,
-      colframe=#2!10!white,
-      borderline west={2pt}{0pt}{#2},
-      boxrule=0mm
-    ]{}{}
-  \begin{_#1}
-  }
-  {
-    \end{_#1}
-    \end{tcolorbox}
-  }
-}
-
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 
@@ -173,12 +142,6 @@
   \newtheorem{lemma}{Lemma}
 \fi
 
-\ifsynthels@olythm
-  \newolytheorem{theorem}{Cyan}
-  \newolytheorem{lemma}{Emerald}
-  \newolytheorem{claim}{Orange}
-\fi
-
 \newfancytheorem{example}{BrickRed}{0mm}
 
 % macros
@@ -195,3 +158,4 @@
 
 % (re)new commands
 \renewcommand{\textbf}[1]{{\bfseries\color{blue}{#1}}}
+
