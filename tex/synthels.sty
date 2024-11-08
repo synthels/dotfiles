@@ -8,6 +8,7 @@
 % use only with LuaTeX/XeTeX!
 %
 % options:
+%   - solution:   for my solutions.
 %   - handout:    for my handouts.
 %   - unicode:    enables a unicode font.
 %   - fancythm:   theorem environments come with a fancy box.
@@ -21,6 +22,7 @@
 \RequirePackage{kvoptions}
 
 % package options
+\DeclareBoolOption{solution}
 \DeclareBoolOption{handout}
 \DeclareBoolOption{unicode}
 \DeclareBoolOption{fancythm}
@@ -37,6 +39,28 @@
 \usepackage[dvipsnames]{xcolor}
 
 \ProcessKeyvalOptions*
+
+\ifsynthels@solution
+  \PassOptionsToPackage{handout}{synthels}
+  \PassOptionsToPackage{fancyprob}{synthels}
+
+  \renewcommand\maketitle
+    {
+    \begin{center}
+      {\Large\sffamily\@title}
+    \end{center}
+    \begin{center}
+      \medskip\par\noindent
+      {\large\sffamily\@author}
+    \end{center}
+    \begin{center}
+      {\large\sffamily\@date}
+      \bigskip\par\noindent
+    \end{center}
+    }
+
+  \ProcessKeyvalOptions*
+\fi
 
 % adds a header, also wide and fancythm
 \ifsynthels@handout
@@ -103,14 +127,16 @@
 
 % defines a theorem with a fancy box
 % usage:
-%   \newfancytheorem{name}{color}{arc}
-\newcommand{\newfancytheorem}[3]{
+%   \newfancytheorem{name}{color}
+\newcommand{\newfancytheorem}[2]{
   \newfancytheoremstyle{#1}{#2}
   \theoremstyle{#1}
   \newtheorem{_#1}{{\color{#2}\MakeUppercase #1}}
   \newenvironment{#1}{
     \begin{tcolorbox}[
-      arc=#3,
+      enhanced,
+      borderline west={2pt}{0pt}{#2},
+      arc=0mm,
       colback=#2!10!white,
       colframe=#2!10!white,
       boxrule=0mm
@@ -128,21 +154,36 @@
 
 % problem environment
 \ifsynthels@fancyprob
-  \newfancytheorem{problem}{Purple}{2mm}
+  \newfancytheoremstyle{problem}{Purple}
+  \theoremstyle{problem}
+  \newtheorem{_problem}{{\color{Purple}Problem}}
+  \newenvironment{problem}{
+    \begin{tcolorbox}[
+      arc=2mm,
+      colback=Purple!10!white,
+      colframe=Purple!10!white,
+      boxrule=0mm
+    ]{}{}
+  \begin{_problem}
+  }
+  {
+    \end{_problem}
+    \end{tcolorbox}
+  }
 \else
   \newtheorem{problem}{Problem}
 \fi
 
 % theorem, lemma, example
 \ifsynthels@fancythm
-  \newfancytheorem{theorem}{Cyan}{0mm}
-  \newfancytheorem{lemma}{Emerald}{0mm}
+  \newfancytheorem{theorem}{Red}
+  \newfancytheorem{lemma}{Emerald}
 \else
   \newtheorem{theorem}{Theorem}
   \newtheorem{lemma}{Lemma}
 \fi
 
-\newfancytheorem{example}{BrickRed}{0mm}
+\newfancytheorem{example}{Orange}
 
 % macros
 \DeclareMathOperator*{\lcm}{lcm}
@@ -158,4 +199,7 @@
 
 % (re)new commands
 \renewcommand{\textbf}[1]{{\bfseries\color{blue}{#1}}}
+
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\le}{\leqslant}
 
