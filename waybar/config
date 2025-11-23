@@ -1,0 +1,19 @@
+/* ~/.config/waybar/config */
+
+{
+  "layer": "top",
+  "margin": 6,
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["sway/window"],
+  "modules-right": ["clock", "battery"],
+  "sway/window": {
+    "max-length": 50
+  },
+  "battery": {
+    "format": "<b>{icon} {capacity}%</b>",
+    "format-icons": [""] /* TODO: add the rest of the icons */
+  },
+  "clock": {
+    "format": "<b> {:%H:%M}</b>"
+  }
+}

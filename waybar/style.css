@@ -1,0 +1,48 @@
+/* My Waybar stylesheet
+ * ~/.config/waybar/style.css */
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  padding: 1px;
+  min-height: 0;
+}
+
+window#waybar {
+  border-radius: 16px;
+  background: rgba(9, 9, 11, 0.6);
+  color: white;
+}
+
+tooltip {
+  background: rgba(43, 48, 59, 0.5);
+}
+
+#workspaces button {
+  background: transparent;
+  padding: 1px 3px; /* make border a circle */
+  border: 3px solid transparent;
+  color: white;
+}
+
+#workspaces button.focused {
+  border-radius: 50%;
+  border-color: white;
+}
+
+#clock, #battery {
+  padding: 0 10px;
+  color: white;
+}
+
+/* workarounds to disable hover & click animations */
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
+
+* {
+  transition: none;
+}
