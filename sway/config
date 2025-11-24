@@ -138,4 +138,7 @@ client.unfocused #363a4f #363a4f #a9b1d6 #363a4f
 # Status Bar
 bar swaybar_command waybar
 
+# PiP for firefox
+for_window [title="Picture-in-Picture"] floating enable
+
 include /etc/sway/config.d/*
