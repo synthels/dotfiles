@@ -21,9 +21,12 @@ input type:touchpad {
   middle_emulation enabled
 }
 
-input type:keyboard {
-  xkb_layout "eu"
+input * {
+  xkb_layout us,gr
+  xkb_options grp:alt_shift_toggle
 }
+
+bindsym Alt+Shift input * xkb_switch_layout next
 
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
