@@ -14,6 +14,7 @@
     "format-icons": [""] /* TODO: add the rest of the icons */
   },
   "clock": {
-    "format": "<b> {:%H:%M}</b>"
+    "format": "<b> {:%H:%M}</b>",
+    "tooltip": false,
   }
 }
