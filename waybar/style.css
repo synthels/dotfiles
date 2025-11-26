@@ -37,6 +37,10 @@ tooltip {
   color: white;
 }
 
+#mode {
+  margin-left: 5px;
+}
+
 /* workarounds to disable hover & click animations */
 #workspaces button:hover {
   box-shadow: inherit;
