@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# ~/.config/sway/choose-bg
+
+WALLPAPERS="/usr/share/backgrounds"
+
+IMAGE="$(find "$WALLPAPERS" -type f | shuf -n 1)"
+pkill swaybg
+
+swaybg -i "$IMAGE" -m fill &
