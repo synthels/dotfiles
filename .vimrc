@@ -16,9 +16,7 @@ set nocompatible
 set termguicolors
 
 call plug#begin()
-  Plug 'sainnhe/everforest'
   Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 set background=dark
-colorscheme everforest
