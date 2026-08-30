@@ -11,7 +11,7 @@
 }
 
 window#waybar {
-  border-radius: 16px;
+  border-radius: 5px;
   background: rgba(9, 9, 11, 0.6);
   color: white;
 }
@@ -28,7 +28,7 @@ tooltip {
 }
 
 #workspaces button.focused {
-  border-radius: 50%;
+  border-radius: 10px;
   border-color: white;
 }
 
