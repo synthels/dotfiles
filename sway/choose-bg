@@ -4,7 +4,7 @@
 
 WALLPAPERS="/usr/share/backgrounds"
 
-IMAGE="$(find "$WALLPAPERS" -type f | shuf -n 1)"
+IMAGE="$(find "$WALLPAPERS" -type f -maxdepth 1 | shuf -n 1)"
 pkill swaybg
 
 swaybg -i "$IMAGE" -m fill &
